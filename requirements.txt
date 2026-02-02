@@ -1,0 +1,7 @@
+kivy==2.2.1
+https://github.com/kivymd/KivyMD/archive/master.zip
+materialyoucolor
+exceptiongroup
+asyncgui
+asynckivy
+faker

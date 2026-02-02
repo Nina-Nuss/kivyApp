@@ -6,4 +6,3 @@ for i in data['levels']:
     print(i)
 
 
-    

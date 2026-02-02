@@ -1,0 +1,60 @@
+MyGridLayout:
+    rows: 4
+    cols: 1
+    Label:
+        id: lb_ausgabe
+        text: ""
+        font_size: 32
+
+    Label:
+        id: anzeige
+        text: ""
+        font_size: 32
+    
+    Button:
+        text: "Neues Spiel"
+        font_size: 32
+        on_press: root.new_game()
+        Image:
+            source: 'images/schachtel.png'
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            fit_mode: 'fill'
+            size: root.width*0.25, root.height*0.25   
+   
+    GridLayout:
+        rows: 1
+        cols: 3  
+        Button:
+            id: lb_zahl1
+            text: "Nimm 1"
+            font_size: 32
+            on_press: root.nimm1()
+            Image:
+                source: 'images/streichholz1.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                fit_mode: 'fill'
+                size: root.width*0.25, root.height*0.25   
+        Button:
+            id: lb_zahl2
+            text: "Nimm 1"
+            font_size: 32
+            on_press: root.nimm2()
+            Image:
+                source: 'images/streichholz1.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                fit_mode: 'fill'
+                size: root.width*0.25, root.height*0.25   
+        Button:
+            id: lb_zahl1
+            text: "Nimm 1"
+            font_size: 32
+            on_press: root.nimm3()
+            Image:
+                source: 'images/streichholz1.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                fit_mode: 'fill'
+                size: root.width*0.25, root.height*0.25   

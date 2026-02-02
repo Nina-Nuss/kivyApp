@@ -1,0 +1,37 @@
+MyGridLayout:
+	cols: 1
+	rows: 6
+
+	Label:
+		id: lb_zahl
+		text: "Ich denke mir eine Zahl zwischen 1 und 1000"
+		font_size: 24
+	
+	Slider:
+		id: sl_slider
+		min: 1
+		max: 1000
+		step: 1
+		value: 500
+		orientation: "horizontal"
+		on_value: root.value_changed()
+		
+	Button:
+		text: "-"
+		font_size: 32
+		on_press: root.button_minus()
+	
+	Label:
+		id: lb_ergebnis
+		text: "Rate mal!"
+		font_size: 32
+		
+	Button:
+		text: "+"
+		font_size: 32
+		on_press: root.button_plus()
+		
+	Button:
+		text: "OK"
+		font_size: 32
+		on_press: root.button_ok()

@@ -1,0 +1,47 @@
+#:import facade plyer.spatialorientation
+
+<Libelle>:
+    canvas:
+		Color:
+            rgb:  [1,1,0] 
+        Ellipse:
+            pos:  self.pos
+            size: self.size
+
+<Label>:
+	font_size: 70
+
+<Wasserwaage>:  
+    facade: facade
+    canvas:
+        Line:
+            width: 1
+            points: 0, root.height/2, root.width*2/3, root.height/2
+        Line:
+            width: 1
+            points: root.width*1/3, 0, root.width*1/3, root.height
+		Color:
+            rgb: root.circle_color
+        Line:
+            width: 2
+            ellipse: root.width/3-self.height/12, self.height/2-self.height/12, self.height/6, self.height/6
+        Line:
+            width: 2    
+            ellipse: root.width/3-self.height/4, self.height/2-self.height/4, self.height/2, self.height/2
+
+    Label:
+        center_x: root.width *5/6
+        center_y: root.height*3/4
+        text: f'a: {root.azimuth}'
+    Label:
+        center_x: root.width *5/6
+        center_y: root.height*2/4
+        text: f'p: {root.pitch}'
+    Label:
+        center_x: root.width *5/6
+        center_y: root.height*1/4
+        text: f'r: {root.roll}'
+
+	Libelle:
+        size: root.height/8, root.height/8
+		center: root.x_libelle,root.y_libelle

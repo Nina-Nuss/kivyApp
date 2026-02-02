@@ -1,0 +1,14 @@
+MDScreen:
+    md_bg_color: self.theme_cls.backgroundColor
+
+    MDTabsPrimary:
+        id: tabs
+        allow_stretch: False
+        pos_hint: {"center_x": .5, "center_y": .5}
+
+        MDDivider:
+
+        MDTabsCarousel:
+            id: related_content
+            size_hint_y: None
+            height: root.height - tabs.ids.tab_scroll.height

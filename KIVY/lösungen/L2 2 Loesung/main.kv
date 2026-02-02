@@ -1,0 +1,51 @@
+MyGridLayout:
+    rows: 5
+
+    Label:
+        id: lb_ausgabe
+        text: "Klicke auf NEU"
+        font_size: 32
+    
+    GridLayout:
+        cols: 2
+    
+        Button:
+            text: "+"
+            font_size: 72
+            on_press: root.button_plus()
+    
+        Button:
+            text: "-"
+            font_size: 72
+            on_press: root.button_minus()
+
+    GridLayout:
+        cols: 2
+        
+        Button:
+            text: "*"
+            font_size: 72
+            on_press: root.button_mal()
+
+        Button:
+            text: "/"
+            font_size: 72
+            on_press: root.button_geteilt()
+
+    Button:
+        text: "NEU"
+        font_size: 72
+        on_press: root.button_neu()
+        
+    GridLayout:
+        cols: 2
+        
+        Label:
+            id: lb_zahl1
+            text: ""
+            font_size: 72
+        
+        Label:
+            id: lb_zahl2
+            text: ""
+            font_size: 72

@@ -8,11 +8,13 @@ source.dir = jonas
 source.include_exts = py,png,jpg,kv,atlas,json,db,txt
 
 version = 0.1
-requirements = python3,kivy,kivymd,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow
+requirements = python3,kivy,https://github.com/kivymd/KivyMD/archive/master.zip,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow
 
 orientation = portrait
 fullscreen = 0
 android.archs = arm64-v8a
+
+android.accept_sdk_license = True
 
 # iOS specific
 ios.kivy_ios_url = https://github.com/kivy/kivy-ios

@@ -2,13 +2,12 @@ from kivy.properties import ObjectProperty, StringProperty, ListProperty, Numeri
 from kivy.uix.screenmanager import Screen
 from klassen.level import Level
 from klassen.kugel import Kugel 
-from db.getLevels import get_levels_from_db 
+from db.selectMap import get_level_map 
 
+level = get_level_map("Level 1")
 
-
-get_levels_from_db()
-
-
-
+print(level)
 # if x, y == 0, 0:
  #   print("Hallo")
+
+ 

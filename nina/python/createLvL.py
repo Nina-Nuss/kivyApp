@@ -26,15 +26,16 @@ def generate_new_level(width=21, height=11):
     
     return maze_map
 
-if __name__ == "__main__":
+
+
     # 1. Level generieren
-    my_level = generate_new_level(21, 11)
+my_level = generate_new_level(21, 11)
     
     # 2. Anzeigen
-    print("\nGeneriertes Level:")
-    for row in my_level:
+print("\nGeneriertes Level:")
+for row in my_level:
         # # für Wand, Leerzeichen für Weg
-        print("".join("1" if cell else "0" for cell in row))
+    print("".join("1" if cell else "0" for cell in row))
     
     # 3. (Optional) Hier könnte man das Level in die Datenbank speichern
     # import sqlite3

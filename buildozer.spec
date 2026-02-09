@@ -4,7 +4,7 @@ title = KugelSpiel
 package.name = eigenesPaket
 package.domain = gsog.eigeneDomain
 
-source.dir = jonas
+source.dir = nina
 source.include_exts = py,png,jpg,kv,atlas,json,db,txt
 
 version = 0.1

@@ -1,0 +1,26 @@
+
+<myGridLayout>
+    cols: 1
+    rows: 3
+    Button:
+        font_size: root.height / 10
+        background_normal: root.background
+        background_down: root.background
+        bold: True
+        text: 'Kugel Spiel'
+    Button:
+        font_size: root.height / 30
+        size_hint: 1,3
+        background_down: root.startPicture
+        background_normal: root.startPicture
+    Button:
+        size_hint: 1,1.4
+        font_size: root.height / 20
+        background_normal: root.background
+        background_down: root.background
+        text: 'Start'
+
+    Label:
+        size_hint: 1,0.2
+        font_size: root.height / 55
+        text: str(root.version)

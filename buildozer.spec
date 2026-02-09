@@ -4,11 +4,11 @@ title = EigenerTitel
 package.name = eigenesPaket
 package.domain = gsog.eigeneDomain
 
-source.dir = .
-source.include_exts = py,png,jpg,kv,atlas
+source.dir = jonas
+source.include_exts = py,png,jpg,kv,atlas,json,db,txt
 
 version = 0.1
-requirements = python3,kivy
+requirements = python3,kivy,kivymd,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow
 
 orientation = portrait
 fullscreen = 0

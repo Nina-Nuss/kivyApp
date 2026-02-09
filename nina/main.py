@@ -10,5 +10,5 @@ get_levels_from_db()
 
 
 
-if x, y == 0, 0:
-    print("Hallo")
+# if x, y == 0, 0:
+ #   print("Hallo")

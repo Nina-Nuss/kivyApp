@@ -2,6 +2,9 @@ import sqlite3
 import json
 import os
 
+
+
+
 def create_database():
     # Pfad zur DB im selben Verzeichnis wie dieses Skript
     base_dir = os.path.dirname(os.path.abspath(__file__))

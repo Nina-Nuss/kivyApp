@@ -1,6 +1,6 @@
 [app]
 
-title = EigenerTitel
+title = KugelSpiel
 package.name = eigenesPaket
 package.domain = gsog.eigeneDomain
 

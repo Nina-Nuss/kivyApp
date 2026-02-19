@@ -1,0 +1,32 @@
+<LevelButton@Button>
+    # size_hint: root.xBreite, root.yHoehe #Funktioniert aus irgendwelchen Gründen nicht als Klasse
+<LevelLabel@Label>
+    size_hint_y: None
+    height: dp(-30)
+<myScrollView>
+    do_scroll_x: False
+    do_scroll_y: True
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: 2
+        padding: 100,100
+        LevelLabel:
+            text: root.tSQL[0]
+        LevelButton:
+            # background_down: root.test[0]
+            background_normal: root.test[0]
+        LevelLabel:
+            text: root.tSQL[1]
+        LevelButton:
+            background_down: root.test[1]
+            background_normal: root.test[1]
+        LevelLabel:
+            text: root.tSQL[2]
+        LevelButton:
+            background_down: root.test[2]
+            background_normal: root.test[2]
+        LevelLabel:
+            text: root.tSQL[3]
+        LevelButton:
+            background_down: root.test[3]
+            background_normal: root.test[3]

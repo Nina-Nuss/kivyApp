@@ -20,6 +20,8 @@ def create_database():
     ''')
     
     # Beispiel-Level Daten
+    # Jonas, hier kannst du deine eigenen Level-Daten einfügen oder anpassen
+    # bitte nutze dafür eine Methode, welches die Level generiert und eine Map zurückgibt, damit du nicht jedes Level manuell als Liste eingeben musst
     level_1 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],

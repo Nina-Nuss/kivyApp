@@ -22,7 +22,7 @@ ios.kivy_ios_branch = main
 ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
 ios.ios_deploy_branch = 1.7.0
 
-icon.filename = nina/assets/logo.png
+icon.filename = nina/assets/logo.jpg
 
 [buildozer]
 log_level = 2

@@ -17,8 +17,6 @@ background = "Bilder//empty.png"
 #https://www.geeksforgeeks.org/python/python-set-background-template-in-kivy/
 
 
-
-
 class myGridLayout(GridLayout):
     version = StringProperty(version)
     startPicture = StringProperty(startPicture)

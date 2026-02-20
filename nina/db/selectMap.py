@@ -32,7 +32,6 @@ def get_level_map(level_name):
         return None
 
 
-# Testfunktion
 
 
 

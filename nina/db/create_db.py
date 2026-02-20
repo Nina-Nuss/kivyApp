@@ -6,7 +6,7 @@ def create_database():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(base_dir, 'levels.db')
     
-    # Verbindung herstellen (erstellt die Datei, wenn sie nicht existiert)
+    # Verbindung herstellen
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     

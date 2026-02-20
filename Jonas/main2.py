@@ -40,7 +40,7 @@ class startApp(App):
 
 class levelAuswahlApp(App):
     def build(self):
-        level = get_level_map("Level 1")
+        self.level = get_level_map("Level 1")
         self.title = 'Level'
         return myScrollView()
 

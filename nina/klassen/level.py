@@ -8,7 +8,8 @@ class Level:
 
     def load_map(self, level_name):
         # Pfad zur JSON-Datei.
-        path = os.path.join("db", "/db/levels.json")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(base_dir, "..", "db", "levels.json")
         try:
             with open(path, 'r', encoding='utf-8') as f:
                 data = json.load(f)

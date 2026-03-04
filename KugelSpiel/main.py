@@ -249,7 +249,7 @@ class MazeWidget(Widget):
                 val = _accel.acceleration
                 if val and val != (None, None, None):
                     # Android: x=links/rechts, y=vor/zurück
-                    gx =  val[0] / 9.81
+                    gx = -val[0] / 9.81
                     gy = -val[1] / 9.81
             except Exception:
                 pass
@@ -297,6 +297,8 @@ class MazeWidget(Widget):
         lv = self.level
         cs = min(self.width / lv.cols, self.height / lv.rows)
         self._cell_sz = cs
+        ox = (self.width  - cs * lv.cols) / 2  # horizontal zentrieren
+        oy = (self.height - cs * lv.rows) / 2  # vertikal zentrieren
 
         if self.kugel is None:
             px = (lv.start_col + 0.5) * cs
@@ -312,8 +314,8 @@ class MazeWidget(Widget):
             # Zellen
             for ri, row in enumerate(lv.grid):
                 for ci, cell in enumerate(row):
-                    x = self.x + ci * cs
-                    y = self.y + (lv.rows - 1 - ri) * cs
+                    x = self.x + ox + ci * cs
+                    y = self.y + oy + (lv.rows - 1 - ri) * cs
                     if cell == Level.WALL:
                         Color(*C_WALL)
                         Rectangle(pos=(x, y), size=(cs, cs))
@@ -341,19 +343,19 @@ class MazeWidget(Widget):
 
             # Kugel
             if self.kugel:
-                bx = self.x + self.kugel.px - self.kugel.radius
-                by = self.y + self.kugel.py - self.kugel.radius
+                bx = self.x + ox + self.kugel.px - self.kugel.radius
+                by = self.y + oy + self.kugel.py - self.kugel.radius
                 d  = self.kugel.radius * 2
                 Color(*C_BALL)
                 Ellipse(pos=(bx, by), size=(d, d))
-                # Glanz
                 Color(*C_BALL_SHIN)
                 sr = self.kugel.radius * 0.35
                 Ellipse(
-                    pos=(self.x + self.kugel.px - sr * 0.6,
-                         self.y + self.kugel.py + self.kugel.radius * 0.2),
+                    pos=(self.x + ox + self.kugel.px - sr * 0.6,
+                         self.y + oy + self.kugel.py + self.kugel.radius * 0.2),
                     size=(sr, sr)
                 )
+
 
 
 # ═══════════════════════════════════════════════════════════════

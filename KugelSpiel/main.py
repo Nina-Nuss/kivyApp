@@ -291,19 +291,18 @@ class MazeWidget(Widget):
 
     def _draw(self):
         self.canvas.clear()
-        if not self.level:
+        if not self.level or self.width <= 0 or self.height <= 0:
             return
 
         lv = self.level
-        # Zellgröße anhand echter Widget-Größe berechnen
-        cs = min(self.width / lv.cols, self.height / lv.rows) if lv.cols and lv.rows else 40
+        cs = min(self.width / lv.cols, self.height / lv.rows)
         self._cell_sz = cs
 
-        # Kugel beim ersten Draw platzieren
         if self.kugel is None:
             px = (lv.start_col + 0.5) * cs
             py = (lv.rows - lv.start_row - 0.5) * cs
             self.kugel = Kugel(px=px, py=py, radius=cs * 0.35)
+
 
         with self.canvas:
             # Hintergrund

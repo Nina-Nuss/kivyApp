@@ -1,7 +1,7 @@
 [app]
-title = KugelSpiel
-package.name = kugelspiel
-package.domain = gsog.schule
+title = KugelSpiel2
+package.name = eigenesPaket
+package.domain = gsog.eigeneDomain
 
 source.dir = KugelSpiel
 source.include_exts = py,png,jpg,kv,atlas,json,db,txt

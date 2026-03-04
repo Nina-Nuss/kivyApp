@@ -7,14 +7,17 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 
 def get_db_path():
     try:
-        from kivy.app import App
-        data_dir = App.get_running_app().user_data_dir
-        dest = os.path.join(data_dir, "levels.db")
-        if not os.path.exists(dest):
-            shutil.copy2(os.path.join(_HERE, "levels.db"), dest)
-        return dest
+        from kivy.utils import platform
+        if platform == 'android':
+            from kivy.app import App
+            data_dir = App.get_running_app().user_data_dir
+            dest = os.path.join(data_dir, "levels.db")
+            if not os.path.exists(dest):
+                shutil.copy2(os.path.join(_HERE, "levels.db"), dest)
+            return dest
     except Exception:
-        return os.path.join(_HERE, "levels.db")
+        pass
+    return os.path.join(_HERE, "levels.db")
 
 
 
@@ -113,14 +116,12 @@ def create_database():
     ]
 
     for name, grid in levels_data:
-        try:
-            cursor.execute(
-                "INSERT INTO levels (name, map_data) VALUES (?, ?)",
-                (name, json.dumps(grid))
-            )
-            print(f"  ✓ {name} eingefügt")
-        except sqlite3.IntegrityError:
-            print(f"  – {name} existiert bereits")
+        cursor.execute(
+            "INSERT OR REPLACE INTO levels (name, map_data) VALUES (?, ?)",
+            (name, json.dumps(grid))
+        )
+
+
 
     # ── Fortschritt initialisieren ─────────────────────────────
     for name, _ in levels_data:

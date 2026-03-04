@@ -7,75 +7,43 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 import random
 
-# Konstanten
-SNAKEBLOCK = 18
-COLORBODY = (0, 1, 0)  # grün
-COLRHEAD = (0.6, 0.4, 0.2)  # braun
-COLORAPPLE = (1, 0, 0)  # rot
-STARTLENGTH = 3
-BACKGROUND = (0.4, 0.7, 0.7)
+B = 18  # Block-Größe
+COLS = ROWS = 26
+W, H = B * COLS, B * ROWS
 FPS = 10
-WINDOW_X = SNAKEBLOCK * 26
-WINDOW_Y = SNAKEBLOCK * 26
+OPPOSITES = {'LEFT': 'RIGHT', 'RIGHT': 'LEFT', 'UP': 'DOWN', 'DOWN': 'UP'}
+MOVES = {'UP': (0, B), 'DOWN': (0, -B), 'LEFT': (-B, 0), 'RIGHT': (B, 0)}
 
 
-class Snake():
-    def __init__(self):
-        self.body = []
-        self.length = 0
-        self.direction = None
-        self.gameover = False
-        self.new()
-
+class Snake:
     def new(self):
-        self.body = []
-        for i in range(0, STARTLENGTH):
-            new_body = [SNAKEBLOCK, SNAKEBLOCK * i]
-            self.body.append(new_body)
+        self.body = [[B, B * i] for i in range(3)]
+        self.direction = 'UP'
+        self.length = 3
         self.gameover = False
-        self.direction = 'DOWN'
-        self.length = len(self.body)
+
+    def __init__(self): self.new()
 
     def move(self):
-        head = self.body[-1]
-        if self.direction == 'DOWN':
-            new_head = [head[0], head[1] + SNAKEBLOCK]
-        elif self.direction == 'UP':
-            new_head = [head[0], head[1] - SNAKEBLOCK]
-        elif self.direction == 'RIGHT':
-            new_head = [head[0] + SNAKEBLOCK, head[1]]
-        elif self.direction == 'LEFT':
-            new_head = [head[0] - SNAKEBLOCK, head[1]]
-        self.body.append(new_head)
+        dx, dy = MOVES[self.direction]
+        head = [self.body[-1][0] + dx, self.body[-1][1] + dy]
+        self.body.append(head)
         if self.length < len(self.body):
             self.body.pop(0)
 
-    def collision(self, apple):
+    def check(self, apple):
         head = self.body[-1]
-        # Selbstkollision
-        for i in range(len(self.body)-1):
-            if self.body[i][0] == head[0] and self.body[i][1] == head[1]:
-                self.gameover = True
-        # Apfel essen
-        if head[0] == apple.x and head[1] == apple.y:
-            apple.new()
-            self.length += 1
-        # Wand-Kollision
-        if head[0] >= WINDOW_X or head[0] < 0:
+        if head in self.body[:-1] or not (0 <= head[0] < W) or not (0 <= head[1] < H):
             self.gameover = True
-        if head[1] >= WINDOW_Y or head[1] < 0:
-            self.gameover = True
+        if head == [apple.x, apple.y]:
+            apple.new(); self.length += 1
 
 
-class Apple():
-    def __init__(self):
-        self.new()
-
+class Apple:
+    def __init__(self): self.new()
     def new(self):
-        block_in_x = int(WINDOW_X / SNAKEBLOCK)
-        block_in_y = int(WINDOW_Y / SNAKEBLOCK)
-        self.x = random.randint(0, block_in_x-1) * SNAKEBLOCK
-        self.y = random.randint(0, block_in_y-1) * SNAKEBLOCK
+        self.x = random.randint(0, COLS - 1) * B
+        self.y = random.randint(0, ROWS - 1) * B
 
 
 class SnakeGame(Widget):
@@ -83,93 +51,51 @@ class SnakeGame(Widget):
         super().__init__(**kwargs)
         self.snake = Snake()
         self.apple = Apple()
-        
-        # Keyboard
-        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
-        self._keyboard.bind(on_key_down=self._on_keyboard_down)
-        
-        # Game Loop
-        Clock.schedule_interval(self.update, 1.0 / FPS)
+        kb = Window.request_keyboard(lambda: None, self)
+        kb.bind(on_key_down=self._key)
+        Clock.schedule_interval(self.update, 1 / FPS)
 
-    def _keyboard_closed(self):
-        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
-        self._keyboard = None
-
-    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        if keycode[1] == 'left':
-            if self.snake.direction != 'RIGHT':
-                self.snake.direction = 'LEFT'
-        elif keycode[1] == 'right':
-            if self.snake.direction != 'LEFT':
-                self.snake.direction = 'RIGHT'
-        elif keycode[1] == 'up':
-            if self.snake.direction != 'DOWN':
-                self.snake.direction = 'UP'
-        elif keycode[1] == 'down':
-            if self.snake.direction != 'UP':
-                self.snake.direction = 'DOWN'
+    def _key(self, kb, keycode, text, mod):
+        key = keycode[1]
+        if key in MOVES and OPPOSITES[key] != self.snake.direction:
+            self.snake.direction = key
 
     def update(self, dt):
         if not self.snake.gameover:
             self.snake.move()
-            self.snake.collision(self.apple)
+            self.snake.check(self.apple)
         self.draw()
 
     def draw(self):
         self.canvas.clear()
         with self.canvas:
-            # Hintergrund
-            Color(*BACKGROUND)
-            Rectangle(pos=(0, 0), size=(WINDOW_X, WINDOW_Y))
-            
-            # Apfel
-            Color(*COLORAPPLE)
-            Rectangle(pos=(self.apple.x, self.apple.y), size=(SNAKEBLOCK, SNAKEBLOCK))
-            
-            # Snake Body
-            Color(*COLORBODY)
-            for i in range(len(self.snake.body)-1):
-                Rectangle(pos=(self.snake.body[i][0], self.snake.body[i][1]), 
-                         size=(SNAKEBLOCK, SNAKEBLOCK))
-            
-            # Snake Head
-            Color(*COLRHEAD)
-            head = self.snake.body[-1]
-            Rectangle(pos=(head[0], head[1]), size=(SNAKEBLOCK, SNAKEBLOCK))
+            Color(0.4, 0.7, 0.7); Rectangle(pos=(0, 0), size=(W, H))
+            Color(1, 0, 0);       Rectangle(pos=(self.apple.x, self.apple.y), size=(B, B))
+            Color(0, 1, 0)
+            for seg in self.snake.body[:-1]:
+                Rectangle(pos=seg, size=(B, B))
+            Color(0.6, 0.4, 0.2); Rectangle(pos=self.snake.body[-1], size=(B, B))
 
     def new_game(self):
-        self.snake.new()
-        self.apple.new()
+        self.snake.new(); self.apple.new()
 
 
 class SnakeApp(App):
     def build(self):
-        Window.size = (WINDOW_X, WINDOW_Y + 80)
-        
+        Window.size = (W, H + 80)
         root = Widget()
-        self.game = SnakeGame(size=(WINDOW_X, WINDOW_Y), pos=(0, 80))
-        
-        # Score Label
-        self.score_label = Label(text='Score: 3', pos=(10, WINDOW_Y + 50), 
-                                size=(200, 30), font_size='20sp')
-        
-        # New Game Button
-        btn = Button(text='New Game', size=(160, 40), 
-                    pos=((WINDOW_X-160)/2, WINDOW_Y + 40))
-        btn.bind(on_press=lambda x: self.game.new_game())
-        
-        root.add_widget(self.game)
-        root.add_widget(self.score_label)
-        root.add_widget(btn)
-        
+        self.game = SnakeGame(size=(W, H), pos=(0, 80))
+        self.lbl = Label(text='Score: 3', pos=(10, H + 50), size=(200, 30), font_size='20sp')
+        btn = Button(text='New Game', size=(160, 40), pos=((W - 160) / 2, H + 40))
+        btn.bind(on_press=lambda *a: self.game.new_game())
+        for w in [self.game, self.lbl, btn]: root.add_widget(w)
         Clock.schedule_interval(self.update_score, 0.1)
         return root
 
     def update_score(self, dt):
-        self.score_label.text = f'Score: {self.game.snake.length}'
-        if self.game.snake.gameover:
-            self.score_label.text = f'GAME OVER! Score: {self.game.snake.length}'
+        s = self.game.snake
+        self.lbl.text = ('GAME OVER! ' if s.gameover else '') + f'Score: {s.length}'
 
 
 if __name__ == '__main__':
-    SnakeApp().run()    
+    SnakeApp().run()

@@ -233,18 +233,13 @@ class MazeWidget(Widget):
 
     def setup(self, level: Level):
         self.level = level
-        # Zellgröße so berechnen, dass Level ins Widget passt
-        max_cs_w = self.width  / level.cols if level.cols else 40
-        max_cs_h = self.height / level.rows if level.rows else 40
-        self._cell_sz = min(max_cs_w, max_cs_h)
-
-        sc, sr = level.start_col, level.start_row
-        px = (sc + 0.5) * self._cell_sz
-        py = (level.rows - sr - 0.5) * self._cell_sz
-        self.kugel = Kugel(px=px, py=py, radius=self._cell_sz * 0.35)
+        self.kugel = None  # wird beim ersten _draw() gesetzt
 
     def _tick(self, dt):
-        if not self.level or not self.kugel:
+        if not self.level:
+            return
+        if not self.kugel:
+            self._draw()  # initialisiert die Kugel
             return
 
         # ── Sensor / Tastatur ─────────────────────────────────
@@ -299,8 +294,17 @@ class MazeWidget(Widget):
         if not self.level:
             return
 
-        lv   = self.level
-        cs   = self._cell_sz
+        lv = self.level
+        # Zellgröße anhand echter Widget-Größe berechnen
+        cs = min(self.width / lv.cols, self.height / lv.rows) if lv.cols and lv.rows else 40
+        self._cell_sz = cs
+
+        # Kugel beim ersten Draw platzieren
+        if self.kugel is None:
+            px = (lv.start_col + 0.5) * cs
+            py = (lv.rows - lv.start_row - 0.5) * cs
+            self.kugel = Kugel(px=px, py=py, radius=cs * 0.35)
+
         with self.canvas:
             # Hintergrund
             Color(*C_BG)

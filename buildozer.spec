@@ -8,7 +8,7 @@ source.dir = nina
 source.include_exts = py,png,jpg,kv,atlas,json,db,txt
 
 version = 0.1
-requirements = python3,kivy,https://github.com/kivymd/KivyMD/archive/master.zip,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow
+requirements = python3,kivy,https://github.com/kivymd/KivyMD/archive/master.zip,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow,plyer
 
 orientation = portrait
 fullscreen = 0

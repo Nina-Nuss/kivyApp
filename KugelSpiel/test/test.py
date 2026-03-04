@@ -16,13 +16,19 @@ MOVES = {'UP': (0, B), 'DOWN': (0, -B), 'LEFT': (-B, 0), 'RIGHT': (B, 0)}
 
 
 class Snake:
+    def __init__(self):
+        self.body = []
+        self.direction = 'UP'
+        self.length = 3
+        self.gameover = False
+        self.new()
+
     def new(self):
         self.body = [[B, B * i] for i in range(3)]
         self.direction = 'UP'
         self.length = 3
         self.gameover = False
 
-    def __init__(self): self.new()
 
     def move(self):
         dx, dy = MOVES[self.direction]

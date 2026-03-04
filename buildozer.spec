@@ -4,11 +4,12 @@ title = KugelSpiel
 package.name = eigenesPaket
 package.domain = gsog.eigeneDomain
 
-source.dir = nina
+source.dir = KugelSpiel
 source.include_exts = py,png,jpg,kv,atlas,json,db,txt
 
 version = 0.1
-requirements = python3,kivy,https://github.com/kivymd/KivyMD/archive/master.zip,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow,plyer
+requirements = python3,kivy==2.3.0,kivymd==1.2.0,materialyoucolor,exceptiongroup,asyncgui,asynckivy,pillow,plyer
+source.include_patterns = db/*.py,db/*.db,db/*.json,klassen/*.py,assets/*
 
 orientation = portrait
 fullscreen = 0

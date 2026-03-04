@@ -1,11 +1,22 @@
 import sqlite3
 import json
 import os
+import shutil
 
+_HERE = os.path.dirname(os.path.abspath(__file__))
 
 def get_db_path():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    return os.path.join(base_dir, "levels.db")
+    try:
+        from kivy.app import App
+        data_dir = App.get_running_app().user_data_dir
+        dest = os.path.join(data_dir, "levels.db")
+        if not os.path.exists(dest):
+            shutil.copy2(os.path.join(_HERE, "levels.db"), dest)
+        return dest
+    except Exception:
+        return os.path.join(_HERE, "levels.db")
+
+
 
 
 def create_database():

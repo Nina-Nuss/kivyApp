@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.graphics import Color, Ellipse, Line
+from kivy.graphics import Color, Ellipse, Line, Rectangle
 from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.clock import Clock
@@ -166,18 +166,18 @@ class BallGame(Widget):
         with self.canvas:
             # Hintergrund
             Color(*COLOR_BG)
-            Ellipse(pos=(0, 0), size=(WINDOW_W, WINDOW_H))
+            Rectangle(pos=(0, 0), size=(WINDOW_W, WINDOW_H))
 
             # Wände
             Color(*COLOR_WALL)
             for wall in WALLS:
-                Ellipse(pos=(wall["x"], wall["y"]),
-                       size=(wall["w"], wall["h"]))
+                Rectangle(pos=(wall["x"], wall["y"]),
+                          size=(wall["w"], wall["h"]))
 
             # Ziel
             Color(*COLOR_GOAL)
-            Ellipse(pos=(GOAL["x"], GOAL["y"]),
-                   size=(GOAL["w"], GOAL["h"]))
+            Rectangle(pos=(GOAL["x"], GOAL["y"]),
+                      size=(GOAL["w"], GOAL["h"]))
 
             # Kugel mit 3D-Effekt
             Color(*COLOR_BALL)
